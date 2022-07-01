@@ -1,0 +1,98 @@
+*,
+*::after {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: beige;
+    font-family: 'Rubik Moonrocks', cursive;
+}
+
+div[data-name='tic-tac-toe']{
+    font-family: inherit;
+    font-size: 4rem;
+    color: beige;
+    text-shadow: 2px 4px 10px black;
+
+}
+
+.canvas{
+    height: 600px;
+    width: 600px;
+    margin: 0px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    background-color: black;
+    grid-template-rows: repeat(50,  1fr);
+    grid-template-columns: repeat(50, 1fr);
+    justify-items: stretch;
+    align-items: stretch;
+    box-shadow: 0px 0px 4px 0px grey;
+}
+
+.canvas>div{
+    border-color: grey;
+    border-style: solid;
+    border-width: thin;
+    cursor: pointer;
+}
+
+div[data-x-coordinate='17'], 
+div[data-x-coordinate='34'],
+div[data-y-coordinate='17'],
+div[data-y-coordinate='34']{
+    background-color: green;
+}
+
+.players{
+    width: 50%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: inherit;
+    font-size: 2rem;
+
+}
+
+div[data-player]{
+    margin: 2px;
+    text-align: center;
+    border-color: black;
+    padding: 5px;
+    margin: 5px;
+    width: 15%;
+
+}
+
+div[data-player="you"]{
+    background-color: red;
+    border-radius: 1rem;
+}
+
+div[data-player="AI"]{
+    background-color: yellow;
+    border-radius: 1rem;
+}
+
+button{
+    font-family: 'Rubik Moonrocks', cursive;
+    font-size: 2rem;
+    width: 100px;
+    border-radius: 1rem;
+    border: none;
+    background-color: black;
+    color: beige;
+    text-align: center;
+    padding-bottom: 5px;
+    box-shadow: 0px 0px 4px 0px grey;
+    cursor: pointer;
+}
