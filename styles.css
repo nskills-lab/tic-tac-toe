@@ -17,8 +17,8 @@ body{
 
 div[data-game-name='tic-tac-toe']{
     font-family: inherit;
-    font-size: 4rem;
-    color: beige;
+    font-size: 4.5rem;
+    color: yellowgreen;
     text-shadow: 2px 4px 10px black;
 }
 
@@ -56,7 +56,7 @@ div[data-x-coordinate='17'],
 div[data-x-coordinate='34'],
 div[data-y-coordinate='17'],
 div[data-y-coordinate='34']{
-    background-color: greenyellow;
+    background-color: yellow;
 }
 
 div[data-x-coordinate='1'][data-y-coordinate='17'],
@@ -105,5 +105,5 @@ button{
 }
 
 button:hover, button:focus{
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
