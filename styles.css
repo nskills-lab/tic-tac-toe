@@ -24,8 +24,8 @@ div[data-name='tic-tac-toe']{
 }
 
 .canvas{
-    height: 600px;
-    width: 600px;
+    height: 500px;
+    width: 500px;
     margin: 0px;
     display: grid;
     justify-content: center;
@@ -56,10 +56,10 @@ div[data-y-coordinate='34']{
     width: 50%;
     height: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-family: inherit;
-    font-size: 2rem;
+    font-size: 1.5rem;
 
 }
 
@@ -68,19 +68,20 @@ div[data-player]{
     text-align: center;
     border-color: black;
     padding: 5px;
-    margin: 5px;
+    margin-right: 15px;
     width: 15%;
+    border-radius: 1rem;
 
 }
 
 div[data-player="you"]{
     background-color: red;
-    border-radius: 1rem;
+
 }
 
 div[data-player="AI"]{
     background-color: yellow;
-    border-radius: 1rem;
+ 
 }
 
 button{
