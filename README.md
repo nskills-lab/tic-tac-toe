@@ -1,10 +1,13 @@
-# tic-tac-toe
+# Tic-tac-toe Game
 
-Tic Tac Toe game
+![Tic-tac-toe game](images/game-dashboard.png)
 
-[Check out this live preview](https://nskills-lab.github.io/tic-tac-toe/)
+Based on [The Odin Project's](https://www.theodinproject.com/lessons/node-path-javascript-tic-tac-toe) assignment.
 
-Acknowledgements
+[Check out this live preview](https://nskills-lab.github.io/tic-tac-toe/).
+You will be playing against the computer!
+
+### Acknowledgements
 
 - <a target="_blank" href="https://icons8.com/icon/18722/circle">Circle</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 

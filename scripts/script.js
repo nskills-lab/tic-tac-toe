@@ -54,4 +54,3 @@ drawCicle(34, 34, 50, 50);
 // generate AI's move
 // decide who is the winner or if it is a draw
 // show the winner (outlay)
-// button restarts the game
