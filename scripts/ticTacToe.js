@@ -1,62 +1,69 @@
-const width = screen.width;
-const height = screen.height;
-const canvas = document.querySelector(".canvas");
 const pixelId = "pixel";
 const canvasSize = 50;
 const sectionSize = Math.ceil(canvasSize / 3);
 const firstRange = [1, 16];
 const secondRange = [18, 33];
 const thirdRange = [35, 50];
-const ranges = {
+export const RANGES = {
   firstRange: firstRange,
   secondRange: secondRange,
   thirdRange: thirdRange,
 };
 
-function loadPixels() {
+export const playerFactory = (name) => {
+  let marked = [];
+  const saveTile = (tile) => {
+    marked.push(tile);
+  };
+  const getMarkedTiles = () => marked;
+  const clearTiles = () => (marked = []);
+  return { name, getMarkedTiles, saveTile, clearTiles };
+};
+
+export function loadPixels(canvas) {
   for (let yCor = 1; yCor <= canvasSize; yCor++) {
     for (let xCor = 1; xCor <= canvasSize; xCor++) {
       let temp = document.createElement("div");
       temp.setAttribute("data-x-coordinate", xCor);
       temp.setAttribute("data-y-coordinate", yCor);
-      let quadrant = 0;
+      let tile = 0;
 
       if (inRange(yCor, firstRange)) {
         if (inRange(xCor, firstRange)) {
-          quadrant = 1;
+          tile = 1;
         }
         if (inRange(xCor, secondRange)) {
-          quadrant = 2;
+          tile = 2;
         }
         if (inRange(xCor, thirdRange)) {
-          quadrant = 3;
+          tile = 3;
         }
       }
 
       if (inRange(yCor, secondRange)) {
         if (inRange(xCor, firstRange)) {
-          quadrant = 4;
+          tile = 4;
         }
         if (inRange(xCor, secondRange)) {
-          quadrant = 5;
+          tile = 5;
         }
         if (inRange(xCor, thirdRange)) {
-          quadrant = 6;
+          tile = 6;
         }
       }
 
       if (inRange(yCor, thirdRange)) {
         if (inRange(xCor, firstRange)) {
-          quadrant = 7;
+          tile = 7;
         }
         if (inRange(xCor, secondRange)) {
-          quadrant = 8;
+          tile = 8;
         }
         if (inRange(xCor, thirdRange)) {
-          quadrant = 9;
+          tile = 9;
         }
       }
-      temp.setAttribute("data-quadrant", `${quadrant}`);
+      temp.setAttribute("data-tile", `${tile}`);
       canvas.appendChild(temp);
     }
   }
@@ -66,7 +73,7 @@ function inRange(number, range) {
   return range[0] <= number && number <= range[1];
 }
 
-function getRange(number) {
+export function getRange(number) {
   if (inRange(number, firstRange)) {
     return "firstRange";
   }
@@ -79,11 +86,11 @@ function getRange(number) {
   return;
 }
 
-function isBarCell(number) {
+export function isBarCell(number) {
   return number == 17 || number == 34;
 }
 
-function drawX(x1, y1, x2, y2) {
+export function drawX(x1, y1, x2, y2) {
   let xStart = x1 + 3;
   let yStart = y1 + 3;
   let xEnd = x2 - 3;
@@ -104,13 +111,13 @@ function colorOneGrid(xCor, yCor, color) {
   );
   pixel.setAttribute("style", `background-color:${color}`);
   if (color === "cyan") {
-    pixel.classList.add("cicle");
+    pixel.setAttribute("data-mark-circle", "cyan");
   } else if (color === "red") {
-    pixel.classList.add("x");
+    pixel.setAttribute("data-mark-x", "red");
   }
 }
 
-function drawCicle(x1, y1, x2, y2) {
+export function drawCicle(x1, y1, x2, y2) {
   // Draw top and bottom of the circle
   let xTopStart = x1 + 7;
   let yTopStart = y1 + 3;
@@ -150,7 +157,9 @@ function drawCicle(x1, y1, x2, y2) {
   }
 }
 
-loadPixels();
+export function generateAImove() {}
+
+const playerHuman = playerFactory("human");
 const cells = document.querySelectorAll(".canvas > div");
 cells.forEach((cell) =>
   cell.addEventListener("click", () => {
@@ -160,29 +169,36 @@ cells.forEach((cell) =>
     if (isBarCell(xCor) || isBarCell(yCor)) {
       return;
     }
-    console.log("not a bar cell");
-    let xRange = ranges[getRange(xCor)];
-    console.log(xRange);
+
+    let xRange = RANGES[getRange(xCor)];
+
     let x1 = xRange[0];
     let x2 = xRange[1];
-    let yRange = ranges[getRange(yCor)];
+    let yRange = RANGES[getRange(yCor)];
     let y1 = yRange[0];
     let y2 = yRange[1];
-
-    drawX(x1, y1, x2, y2);
+    let tile = parseInt(cell.getAttribute("data-tile"));
+    let currentHumanTilles = playerHuman.getMarkedTiles();
+    if (!currentHumanTilles.includes(tile)) {
+      drawX(x1, y1, x2, y2);
+      playerHuman.saveTile(tile);
+    } else {
+    }
   })
 );
 
-//drawX(1, 1, 17, 17);
-//drawX(17, 17, 33, 33);
+export function clearGame() {
+  playerHuman.clearTiles();
+}
 
-drawCicle(17, 1, 33, 17);
-drawCicle(34, 34, 50, 50);
+export function resetTiles() {
+  const redPixels = document.querySelectorAll("div[data-mark-x]");
+  const cyanPixels = document.querySelectorAll("div[data-mark-circle]");
 
-// Listen to the click and based on the player decide whether to draw x or circle
-
-// Keep track of player moves
-// generate AI's move
-// decide who is the winner or if it is a draw
-// show the winner (outlay)
-// button restarts the game
+  [...redPixels].forEach((pixel) =>
+    pixel.setAttribute("style", "background-color:black")
+  );
+  [...cyanPixels].forEach((pixel) =>
+    pixel.setAttribute("style", "background-color:black")
+  );
+}

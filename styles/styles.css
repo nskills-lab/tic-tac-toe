@@ -77,7 +77,7 @@ div[data-player]{
     text-align: center;
     padding: 5px;
     width: 15%;
-
+    font-size: 1.5rem;
 }
 
 div[data-player="you"]{
