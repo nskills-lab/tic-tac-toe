@@ -41,7 +41,7 @@ div[data-game-board]{
     grid-template-columns: repeat(50, 1fr);
     justify-items: stretch;
     align-items: stretch;
-    box-shadow: 0px 0px 4px 0px grey;
+    box-shadow: 2px 2px 4px 0px grey;
 }
 
 .canvas>div{
@@ -97,7 +97,7 @@ button{
     border-radius: 1rem;
     border: none;
     background-color: black;
-    color: yellowgreen;
+    color: yellow;
     text-align: center;
     padding-bottom: 5px;
     box-shadow: 0px 0px 4px 0px grey;
@@ -106,4 +106,8 @@ button{
 
 button:hover, button:focus{
     transform: scale(1.1);
+}
+
+.circle{
+  
 }
