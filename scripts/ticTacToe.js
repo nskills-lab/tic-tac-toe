@@ -1,6 +1,4 @@
-const pixelId = "pixel";
 const canvasSize = 50;
-const sectionSize = Math.ceil(canvasSize / 3);
 const firstRange = [1, 16];
 const secondRange = [18, 33];
 const thirdRange = [35, 50];
@@ -8,6 +6,18 @@ export const RANGES = {
   firstRange: firstRange,
   secondRange: secondRange,
   thirdRange: thirdRange,
+};
+
+export const TILES = {
+  1: [firstRange, firstRange],
+  2: [secondRange, firstRange],
+  3: [thirdRange, firstRange],
+  4: [firstRange, secondRange],
+  5: [secondRange, secondRange],
+  6: [thirdRange, secondRange],
+  7: [firstRange, thirdRange],
+  8: [secondRange, thirdRange],
+  9: [thirdRange, thirdRange],
 };
 
 export const playerFactory = (name) => {
@@ -19,6 +29,14 @@ export const playerFactory = (name) => {
   const clearTiles = () => (marked = []);
   return { name, getMarkedTiles, saveTile, clearTiles };
 };
+
+export const gameboard = (() => {
+  let gameboard = {};
+  const addMark = (player, tile) => (gameboard[tile] = player);
+  const clearGameBoard = () => (gameboard = {});
+  const getGameBoard = () => gameboard;
+  return { addMark, clearGameBoard, getGameBoard };
+})();
 
 export function loadPixels(canvas) {
   for (let yCor = 1; yCor <= canvasSize; yCor++) {
@@ -157,38 +175,12 @@ export function drawCicle(x1, y1, x2, y2) {
   }
 }
 
-export function generateAImove() {}
-
-const playerHuman = playerFactory("human");
-const cells = document.querySelectorAll(".canvas > div");
-cells.forEach((cell) =>
-  cell.addEventListener("click", () => {
-    let xCor = parseInt(cell.getAttribute("data-x-coordinate"));
-    let yCor = parseInt(cell.getAttribute("data-y-coordinate"));
-
-    if (isBarCell(xCor) || isBarCell(yCor)) {
-      return;
-    }
-
-    let xRange = RANGES[getRange(xCor)];
-
-    let x1 = xRange[0];
-    let x2 = xRange[1];
-    let yRange = RANGES[getRange(yCor)];
-    let y1 = yRange[0];
-    let y2 = yRange[1];
-    let tile = parseInt(cell.getAttribute("data-tile"));
-    let currentHumanTilles = playerHuman.getMarkedTiles();
-    if (!currentHumanTilles.includes(tile)) {
-      drawX(x1, y1, x2, y2);
-      playerHuman.saveTile(tile);
-    } else {
-    }
-  })
-);
-
-export function clearGame() {
-  playerHuman.clearTiles();
+export function generateAImove(gameboardMoves) {
+  let number = Math.floor(Math.random() * 9) + 1;
+  while (gameboardMoves.hasOwnProperty(number)) {
+    number = Math.floor(Math.random() * 9) + 1;
+  }
+  return number;
 }
 
 export function resetTiles() {
