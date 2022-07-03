@@ -35,9 +35,10 @@ cells.forEach((cell) =>
     let y1 = yRange[0];
     let y2 = yRange[1];
     let tile = parseInt(cell.getAttribute("data-tile"));
-    let currentHumanTilles = playerHuman.getMarkedTiles();
+    let currentHumanTiles = playerHuman.getMarkedTiles();
+    let currentAITiles = playerAI.getMarkedTiles();
 
-    if (currentHumanTilles.includes(tile)) {
+    if (currentHumanTiles.includes(tile) || currentAITiles.includes(tile)) {
       alert("The tile is already marked!");
       return;
     }
@@ -45,16 +46,16 @@ cells.forEach((cell) =>
     playerHuman.saveTile(tile);
     gameboard.addMark(playerHuman.name, tile);
 
-    console.log(gameboard.getGameBoard());
-    let aiMove = generateAImove(gameboard.getGameBoard());
-    playerAI.saveTile(aiMove);
-    gameboard.addMark(playerAI, tile);
-    let [xRangeAI, yRangeAI] = TILES[aiMove];
+    let moveAI = generateAImove(gameboard.getGameBoard());
+    playerAI.saveTile(moveAI);
+    gameboard.addMark(playerAI.name, moveAI);
+    let [xRangeAI, yRangeAI] = TILES[moveAI];
     let x1AI = xRangeAI[0];
     let x2AI = xRangeAI[1];
     let y1AI = yRangeAI[0];
     let y2AI = yRangeAI[1];
     drawCicle(x1AI, y1AI, x2AI, y2AI);
+    console.log(gameboard.getGameBoard());
   })
 );
 
@@ -64,6 +65,7 @@ restart.addEventListener("click", (e) => {
   gameboard.clearGameBoard();
 });
 
-// generate AI's move
+function checkTheWinner() {}
+
 // decide who is the winner or if it is a draw
 // show the winner (outlay)

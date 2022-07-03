@@ -31,10 +31,10 @@ export const playerFactory = (name) => {
 };
 
 export const gameboard = (() => {
-  let gameboard = {};
-  const addMark = (player, tile) => (gameboard[tile] = player);
-  const clearGameBoard = () => (gameboard = {});
-  const getGameBoard = () => gameboard;
+  let gameboardMarks = {};
+  const addMark = (player, tile) => (gameboardMarks[tile] = player);
+  const clearGameBoard = () => (gameboardMarks = {});
+  const getGameBoard = () => gameboardMarks;
   return { addMark, clearGameBoard, getGameBoard };
 })();
 
