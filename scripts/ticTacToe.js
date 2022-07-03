@@ -33,9 +33,9 @@ export const playerFactory = (name) => {
 export const gameboard = (() => {
   let gameboardMarks = {};
   const addMark = (player, tile) => (gameboardMarks[tile] = player);
-  const clearGameBoard = () => (gameboardMarks = {});
-  const getGameBoard = () => gameboardMarks;
-  return { addMark, clearGameBoard, getGameBoard };
+  const clear = () => (gameboardMarks = {});
+  const getCurrentMarks = () => gameboardMarks;
+  return { addMark, clear, getCurrentMarks };
 })();
 
 export function loadPixels(canvas) {

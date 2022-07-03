@@ -46,7 +46,7 @@ cells.forEach((cell) =>
     playerHuman.saveTile(tile);
     gameboard.addMark(playerHuman.name, tile);
 
-    let moveAI = generateAImove(gameboard.getGameBoard());
+    let moveAI = generateAImove(gameboard.getCurrentMarks());
     playerAI.saveTile(moveAI);
     gameboard.addMark(playerAI.name, moveAI);
     let [xRangeAI, yRangeAI] = TILES[moveAI];
@@ -55,17 +55,36 @@ cells.forEach((cell) =>
     let y1AI = yRangeAI[0];
     let y2AI = yRangeAI[1];
     drawCicle(x1AI, y1AI, x2AI, y2AI);
-    console.log(gameboard.getGameBoard());
+
+    console.log(checkTheWinner());
   })
 );
 
 restart.addEventListener("click", (e) => {
   playerHuman.clearTiles();
   resetTiles();
-  gameboard.clearGameBoard();
+  gameboard.clear();
 });
 
-function checkTheWinner() {}
+function checkTheWinner() {
+  let currentGameBoard = gameboard.getCurrentMarks();
+  let winner = "";
+  let human = "human";
+  let ai = "AI";
+
+  // row check
+
+  for (let count = 1; count <= 9; count + 3) {
+    winner =
+      (currentGameBoard[count] == currentGameBoard[count + 1]) ==
+      currentGameBoard[count + 2];
+  }
+
+  // column check
+  // diagonal check
+
+  return winner;
+}
 
 // decide who is the winner or if it is a draw
 // show the winner (outlay)
