@@ -7,7 +7,6 @@ import {
   drawCicle,
   drawX,
   generateAImove,
-  resetTiles,
   isBarCell,
   getRange,
   checkGame,
