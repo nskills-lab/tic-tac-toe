@@ -11,9 +11,11 @@ import {
   isBarCell,
   getRange,
   checkGame,
+  restartGame,
 } from "./ticTacToe.js";
 const canvas = document.querySelector(".canvas");
-const restart = document.querySelector("button[data-button-restart]");
+const overlay = document.querySelector("#result");
+const resultEl = document.querySelector("div[data-result]");
 
 loadPixels(canvas);
 const playerHuman = playerFactory("Human");
@@ -23,7 +25,7 @@ const cells = document.querySelectorAll(".canvas > div");
 cells.forEach((cell) =>
   cell.addEventListener("click", () => {
     if (gameboard.hasNoSpace()) {
-      alert("It is a tie!");
+      displayResult(0);
       return;
     }
 
@@ -55,17 +57,14 @@ cells.forEach((cell) =>
     gameboard.addMark(playerHuman.name, tile);
     drawX(x1, y1, x2, y2);
     let winner = checkGame(gameboard);
-    console.log(winner);
 
     if (winner) {
-      setTimeout(() => {
-        alert(`Winner: ${winner}!`);
-      }, 1);
+      displayResult(winner);
       return;
     }
 
     if (gameboard.hasNoSpace()) {
-      alert("It is a tie!");
+      displayResult(0);
       return;
     }
     let moveAI = generateAImove(gameboard.getCurrentMarks());
@@ -79,17 +78,27 @@ cells.forEach((cell) =>
     drawCicle(x1AI, y1AI, x2AI, y2AI);
     winner = checkGame(gameboard);
     if (winner) {
-      alert(`Winner: ${winner}!`);
+      displayResult(winner);
       return;
     }
   })
 );
 
-restart.addEventListener("click", (e) => {
-  playerHuman.clearTiles();
-  playerAI.clearTiles();
-  gameboard.clear();
-  resetTiles();
+document.addEventListener("click", (e) => {
+  if (e.target.matches("button[data-button-restart]")) {
+    restartGame(playerHuman, playerAI, gameboard);
+  }
+  if (e.target.matches("button[data-button-close]")) {
+    overlay.classList.remove("open");
+    restartGame(playerHuman, playerAI, gameboard);
+  }
 });
 
-// show the winner (outlay)
+function displayResult(result) {
+  overlay.classList.toggle("open");
+  if (result == 0) {
+    resultEl.textContent = "It is a tie!";
+  } else {
+    resultEl.textContent = `${result} won!`;
+  }
+}

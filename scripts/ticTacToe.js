@@ -245,3 +245,10 @@ export function checkGame(gameboard) {
 
   return winner;
 }
+
+export function restartGame(playerHuman, playerAI, gameboard) {
+  playerHuman.clearTiles();
+  playerAI.clearTiles();
+  gameboard.clear();
+  resetTiles();
+}
