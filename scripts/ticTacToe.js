@@ -40,45 +40,45 @@ export const gameboard = (() => {
 })();
 
 export function loadPixels(canvas) {
-  for (let yCor = 1; yCor <= canvasSize; yCor++) {
-    for (let xCor = 1; xCor <= canvasSize; xCor++) {
+  for (let yCoor = 1; yCoor <= canvasSize; yCoor++) {
+    for (let xCoor = 1; xCoor <= canvasSize; xCoor++) {
       let temp = document.createElement("div");
-      temp.setAttribute("data-x-coordinate", xCor);
-      temp.setAttribute("data-y-coordinate", yCor);
+      temp.setAttribute("data-x-coordinate", xCoor);
+      temp.setAttribute("data-y-coordinate", yCoor);
       let tile = 0;
 
-      if (inRange(yCor, firstRange)) {
-        if (inRange(xCor, firstRange)) {
+      if (inRange(yCoor, firstRange)) {
+        if (inRange(xCoor, firstRange)) {
           tile = 1;
         }
-        if (inRange(xCor, secondRange)) {
+        if (inRange(xCoor, secondRange)) {
           tile = 2;
         }
-        if (inRange(xCor, thirdRange)) {
+        if (inRange(xCoor, thirdRange)) {
           tile = 3;
         }
       }
 
-      if (inRange(yCor, secondRange)) {
-        if (inRange(xCor, firstRange)) {
+      if (inRange(yCoor, secondRange)) {
+        if (inRange(xCoor, firstRange)) {
           tile = 4;
         }
-        if (inRange(xCor, secondRange)) {
+        if (inRange(xCoor, secondRange)) {
           tile = 5;
         }
-        if (inRange(xCor, thirdRange)) {
+        if (inRange(xCoor, thirdRange)) {
           tile = 6;
         }
       }
 
-      if (inRange(yCor, thirdRange)) {
-        if (inRange(xCor, firstRange)) {
+      if (inRange(yCoor, thirdRange)) {
+        if (inRange(xCoor, firstRange)) {
           tile = 7;
         }
-        if (inRange(xCor, secondRange)) {
+        if (inRange(xCoor, secondRange)) {
           tile = 8;
         }
-        if (inRange(xCor, thirdRange)) {
+        if (inRange(xCoor, thirdRange)) {
           tile = 9;
         }
       }
@@ -115,18 +115,18 @@ export function drawX(x1, y1, x2, y2) {
   let xEnd = x2 - 3;
   let yEnd = y2 - 3;
 
-  for (let yCor = yStart, xCor = xStart; yCor <= yEnd; yCor++, xCor++) {
-    colorOneGrid(xCor, yCor, "red");
+  for (let yCoor = yStart, xCoor = xStart; yCoor <= yEnd; yCoor++, xCoor++) {
+    colorOneGrid(xCoor, yCoor, "red");
   }
 
-  for (let yCor = yStart, xCor = xEnd; yCor <= yEnd; yCor++, xCor--) {
-    colorOneGrid(xCor, yCor, "red");
+  for (let yCoor = yStart, xCoor = xEnd; yCoor <= yEnd; yCoor++, xCoor--) {
+    colorOneGrid(xCoor, yCoor, "red");
   }
 }
 
-function colorOneGrid(xCor, yCor, color) {
+function colorOneGrid(xCoor, yCoor, color) {
   let pixel = document.querySelector(
-    `div[data-x-coordinate="${xCor}"][data-y-coordinate="${yCor}"]`
+    `div[data-x-coordinate="${xCoor}"][data-y-coordinate="${yCoor}"]`
   );
   pixel.setAttribute("style", `background-color:${color}`);
   if (color === "cyan") {
@@ -144,20 +144,20 @@ export function drawCicle(x1, y1, x2, y2) {
   let yTopEnd = y2 - 4;
 
   for (
-    let xCor = xTopStart, yCorTop = yTopStart, yCorEnd = yTopEnd;
-    xCor <= xTopEnd;
-    xCor++
+    let xCoor = xTopStart, yCoorTop = yTopStart, yCoorEnd = yTopEnd;
+    xCoor <= xTopEnd;
+    xCoor++
   ) {
-    colorOneGrid(xCor, yCorTop, "cyan");
-    colorOneGrid(xCor, yCorEnd, "cyan");
+    colorOneGrid(xCoor, yCoorTop, "cyan");
+    colorOneGrid(xCoor, yCoorEnd, "cyan");
 
-    if (xCor === xTopStart) {
-      colorOneGrid(xCor - 1, yCorTop + 1, "cyan");
-      colorOneGrid(xCor - 1, yCorEnd - 1, "cyan");
+    if (xCoor === xTopStart) {
+      colorOneGrid(xCoor - 1, yCoorTop + 1, "cyan");
+      colorOneGrid(xCoor - 1, yCoorEnd - 1, "cyan");
     }
-    if (xCor === xTopEnd) {
-      colorOneGrid(xCor + 1, yCorTop + 1, "cyan");
-      colorOneGrid(xCor + 1, yCorEnd - 1, "cyan");
+    if (xCoor === xTopEnd) {
+      colorOneGrid(xCoor + 1, yCoorTop + 1, "cyan");
+      colorOneGrid(xCoor + 1, yCoorEnd - 1, "cyan");
     }
   }
 
@@ -167,12 +167,12 @@ export function drawCicle(x1, y1, x2, y2) {
   let ySideStart = yTopStart + 2;
   let ySideEnd = ySideStart + 4;
   for (
-    let xLeftCor = xLeftStart, xRightCor = xRightStart, yCor = ySideStart;
-    yCor <= ySideEnd;
-    yCor++
+    let xLeftCoor = xLeftStart, xRightCoor = xRightStart, yCoor = ySideStart;
+    yCoor <= ySideEnd;
+    yCoor++
   ) {
-    colorOneGrid(xLeftCor, yCor, "cyan");
-    colorOneGrid(xRightCor, yCor, "cyan");
+    colorOneGrid(xLeftCoor, yCoor, "cyan");
+    colorOneGrid(xRightCoor, yCoor, "cyan");
   }
 }
 
