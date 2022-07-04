@@ -35,7 +35,8 @@ export const gameboard = (() => {
   const addMark = (player, tile) => (gameboardMarks[tile] = player);
   const clear = () => (gameboardMarks = {});
   const getCurrentMarks = () => gameboardMarks;
-  return { addMark, clear, getCurrentMarks };
+  const hasNoSpace = () => !(Object.keys(gameboardMarks).length < 9);
+  return { addMark, clear, getCurrentMarks, hasNoSpace };
 })();
 
 export function loadPixels(canvas) {
@@ -137,7 +138,7 @@ function colorOneGrid(xCor, yCor, color) {
 
 export function drawCicle(x1, y1, x2, y2) {
   // Draw top and bottom of the circle
-  let xTopStart = x1 + 7;
+  let xTopStart = x1 + 5;
   let yTopStart = y1 + 3;
   let xTopEnd = xTopStart + 4;
   let yTopEnd = y2 - 4;
@@ -164,7 +165,7 @@ export function drawCicle(x1, y1, x2, y2) {
   let xLeftStart = xTopStart - 2;
   let xRightStart = xTopStart + 6;
   let ySideStart = yTopStart + 2;
-  let ySideEnd = ySideStart + 5;
+  let ySideEnd = ySideStart + 4;
   for (
     let xLeftCor = xLeftStart, xRightCor = xRightStart, yCor = ySideStart;
     yCor <= ySideEnd;
@@ -193,4 +194,54 @@ export function resetTiles() {
   [...cyanPixels].forEach((pixel) =>
     pixel.setAttribute("style", "background-color:black")
   );
+}
+
+export function checkGame(gameboard) {
+  let currentGameBoard = gameboard.getCurrentMarks();
+  let winner = 0;
+
+  // row check
+  for (let count = 1; count <= 7; count += 3) {
+    if (
+      currentGameBoard[count] == currentGameBoard[count + 1] &&
+      currentGameBoard[count] == currentGameBoard[count + 2]
+    ) {
+      winner = currentGameBoard[count];
+      return winner;
+    }
+  }
+
+  // column check
+  for (let count = 1; count <= 3; count++) {
+    if (
+      currentGameBoard[count] == currentGameBoard[count + 3] &&
+      currentGameBoard[count] == currentGameBoard[count + 6]
+    ) {
+      winner = currentGameBoard[count];
+      return winner;
+    }
+  }
+
+  // diagonal check
+
+  for (let count = 1; count <= 3; count += 2) {
+    if (
+      currentGameBoard[count] == currentGameBoard[count + 4] &&
+      currentGameBoard[count] == currentGameBoard[count + 8]
+    ) {
+      winner = currentGameBoard[count];
+      return winner;
+    }
+    if (count === 3) {
+      if (
+        currentGameBoard[count] == currentGameBoard[count + 2] &&
+        currentGameBoard[count] == currentGameBoard[count + 4]
+      ) {
+        winner = currentGameBoard[count];
+        return winner;
+      }
+    }
+  }
+
+  return winner;
 }
