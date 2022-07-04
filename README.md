@@ -1,4 +1,4 @@
-# Tic-tac-toe Game
+# Tic Tac Toe Game
 
 ![Tic-tac-toe game](images/game-dashboard.png)
 
