@@ -136,7 +136,7 @@ function colorOneGrid(xCoor, yCoor, color) {
   }
 }
 
-export function drawCicle(x1, y1, x2, y2) {
+export function drawCicle(x1, y1, y2) {
   // Draw top and bottom of the circle
   let xTopStart = x1 + 5;
   let yTopStart = y1 + 3;
@@ -251,4 +251,13 @@ export function restartGame(playerHuman, playerAI, gameboard) {
   playerAI.clearTiles();
   gameboard.clear();
   resetTiles();
+}
+
+export function displayResult(result, resultEl, overlay) {
+  overlay.classList.toggle("open");
+  if (result == 0) {
+    resultEl.textContent = "It is a tie!";
+  } else {
+    resultEl.textContent = `${result} won!`;
+  }
 }

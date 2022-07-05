@@ -11,6 +11,7 @@ import {
   getRange,
   checkGame,
   restartGame,
+  displayResult,
 } from "./ticTacToe.js";
 const canvas = document.querySelector(".canvas");
 const overlay = document.querySelector("#result");
@@ -19,12 +20,19 @@ const resultEl = document.querySelector("div[data-result]");
 loadPixels(canvas);
 const playerHuman = playerFactory("Human");
 const playerAI = playerFactory("AI");
-const cells = document.querySelectorAll(".canvas > div");
 
-cells.forEach((cell) =>
-  cell.addEventListener("click", () => {
+document.addEventListener("click", (e) => {
+  if (e.target.matches("button[data-button-restart]")) {
+    restartGame(playerHuman, playerAI, gameboard);
+  }
+  if (e.target.matches("button[data-button-close]")) {
+    overlay.classList.remove("open");
+    restartGame(playerHuman, playerAI, gameboard);
+  }
+  if (e.target.matches("div[data-x-coordinate]")) {
+    let cell = e.target;
     if (gameboard.hasNoSpace()) {
-      displayResult(0);
+      displayResult(0, resultEl, overlay);
       return;
     }
 
@@ -58,46 +66,27 @@ cells.forEach((cell) =>
     let winner = checkGame(gameboard);
 
     if (winner) {
-      displayResult(winner);
+      displayResult(winner, resultEl, overlay);
       return;
     }
 
     if (gameboard.hasNoSpace()) {
-      displayResult(0);
+      displayResult(0, resultEl, overlay);
       return;
     }
+
     let moveAI = generateAImove(gameboard.getCurrentMarks());
     playerAI.saveTile(moveAI);
     gameboard.addMark(playerAI.name, moveAI);
     let [xRangeAI, yRangeAI] = TILES[moveAI];
     let x1AI = xRangeAI[0];
-    let x2AI = xRangeAI[1];
     let y1AI = yRangeAI[0];
     let y2AI = yRangeAI[1];
-    drawCicle(x1AI, y1AI, x2AI, y2AI);
+    drawCicle(x1AI, y1AI, y2AI);
     winner = checkGame(gameboard);
     if (winner) {
-      displayResult(winner);
+      displayResult(winner, resultEl, overlay);
       return;
     }
-  })
-);
-
-document.addEventListener("click", (e) => {
-  if (e.target.matches("button[data-button-restart]")) {
-    restartGame(playerHuman, playerAI, gameboard);
-  }
-  if (e.target.matches("button[data-button-close]")) {
-    overlay.classList.remove("open");
-    restartGame(playerHuman, playerAI, gameboard);
   }
 });
-
-function displayResult(result) {
-  overlay.classList.toggle("open");
-  if (result == 0) {
-    resultEl.textContent = "It is a tie!";
-  } else {
-    resultEl.textContent = `${result} won!`;
-  }
-}
