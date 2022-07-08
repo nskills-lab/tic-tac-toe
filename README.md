@@ -7,7 +7,7 @@ Based on [The Odin Project's](https://www.theodinproject.com/lessons/node-path-j
 [Check out this live preview](https://nskills-lab.github.io/tic-tac-toe/).
 You will be playing against the computer!
 
-### Acknowledgements
+## Acknowledgements
 
 - <a target="_blank" href="https://icons8.com/icon/18722/circle">Circle</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
