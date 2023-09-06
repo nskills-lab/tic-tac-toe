@@ -2,7 +2,7 @@
 
 ![Tic-tac-toe game](images/game-dashboard.png)
 
-Based on [The Odin Project's](https://www.theodinproject.com/lessons/node-path-javascript-tic-tac-toe) assignment.
+Based on The Odin Project's assignment.
 
 [Check out this live preview](https://nskills-lab.github.io/tic-tac-toe/).
 You will be playing against the computer!
